@@ -1,0 +1,37 @@
+
+
+	sudo apt install -y php-cli php-fpm php-json php-intl php-imagick php-pdo php-mysql php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath libapache2-mod-php
+
+	CREATE DATABASE your_database;
+
+	CREATE USER your_user@localhost IDENTIFIED BY 'Your_Password';
+
+	GRANT ALL ON your_database.* TO your_user@localhost;
+
+	sudo wget https://download.nextcloud.com/server/releases/latest.zip
+
+
+<VirtualHost *:80>
+	ServerAdmin your-admin@localhost
+	DocumentRoot /var/www/html/nextcloud/
+	#ServerName your-domain
+	#ServerAlias your-alias #www.your-domain
+	ErrorLog /var/log/apache2/nextcloud-error.log
+	CustomLog /var/log/apache2/nextcloud-access.log combined
+ 
+	<Directory /var/www/html/nextcloud/>
+		Options +FollowSymlinks
+		AllowOverride All
+		Require all granted
+		SetEnv HOME /var/www/html/nextcloud/
+ 		SetEnv HTTP_HOME /var/www/html/nextcloud/
+ 		<IfModule mod_dav.c>
+  	  		Dav off
+        		</IfModule>
+    	</Directory>
+</VirtualHost>
+
+
+
+
+	
